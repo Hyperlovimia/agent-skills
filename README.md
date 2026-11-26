@@ -1,6 +1,6 @@
 # Agent Skills
 
-个人维护的 AI Agent Skills 集合，包含 **T3 Code 多代理协作协议**与**可视化表达规范**，支持通过 [CC Switch](https://github.com/farion1231/cc-switch) 直接导入与一键更新。
+个人维护的 AI Agent Skills 与配套提示词集合，包含 **T3 Code 多代理协作协议**、**可视化表达规范**以及 **Codex 全局 `AGENTS.md`**。其中 Skills 支持通过 [CC Switch](https://github.com/farion1231/cc-switch) 直接导入与一键更新。
 
 > **说明**：CC Switch 仅负责安装与同步 Skill 文件；各 Skill 所需的运行时工具（如线程编排、定时任务、HTML 渲染等）由对应的宿主客户端提供。
 
@@ -65,11 +65,32 @@ ccswitch://v1/import?resource=skill&repo=Hyperlovimia/agent-skills&branch=main
 git clone https://github.com/Hyperlovimia/agent-skills.git
 ```
 
+## 配套全局提示词（Codex `AGENTS.md`）
+
+仓库同时收录了配套的 Codex 全局提示词文件 [`prompts/codex/AGENTS.md`](prompts/codex/AGENTS.md)（[Raw 原文](https://raw.githubusercontent.com/Hyperlovimia/agent-skills/main/prompts/codex/AGENTS.md)），可与 `t3-secretary` 等技能配合使用，内容涵盖：
+
+- 多会话与 Git worktree 隔离策略
+- 长时任务追踪指南（`wait_agent` 与原生 `Scheduled Task`）
+- 主代理 / 子代理委派、静默执行与通信规范
+- 模型与推理强度分工建议
+
+### 使用方式
+
+- **通过 CC Switch 配置**：打开 CC Switch，进入 **提示词 → Codex**，新建或编辑预设，将 [`prompts/codex/AGENTS.md`](prompts/codex/AGENTS.md) 的内容复制粘贴进去并启用。
+- **手动配置**：直接将文件内容保存到本地 `~/.codex/AGENTS.md`。
+
+> **提示**：
+> - 文件中的具体模型名称、推理强度设置以及“遵循仓库 `协作流程`”等约定，请**按自己使用的模型与仓库规范按需替换**。
+> - `AGENTS.md` 不会随 CC Switch 的 Skills 仓库自动同步，后续如有改动需要**自行更新**。
+
 ## 仓库结构
 
 ```text
 .
 ├── README.md
+├── prompts/
+│   └── codex/
+│       └── AGENTS.md
 ├── t3-adversarial/
 │   └── SKILL.md
 ├── t3-secretary/
