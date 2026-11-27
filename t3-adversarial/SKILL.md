@@ -8,7 +8,7 @@ compatibility: 依赖 T3 Code 中子代理会话的编排环境。
 
 当用户要求与子代理开展多轮集思广益、方案审查或对抗式辩论时，保持主代理主体性、复用同一审查子代理会话，并在有限轮次内求同存异，输出可供用户最终决策的结果。
 
-**Important Exception (Adversarial Review):** The current T3 Code orchestration constraint requiring that a new `delegate_task` be started for every new review or verification—and prohibiting sending next-round questions back to an existing task—**does NOT apply to adversarial reviews**. **Do NOT start a new `delegate_task`** for subsequent rounds; continue the existing subagent session instead.
+**Important Exception (Adversarial Review):** The current T3 Code orchestration constraint requiring that a new `delegate_task` be started for every new review or verification—and prohibiting sending next-round questions back to an existing task—**does NOT apply to adversarial reviews**. **Do NOT start a new `delegate_task`** for subsequent rounds; continue the existing subagent session instead (via `t3_thread_send` to the same `childThreadId`).
 
 ## 角色定位与立场
 
@@ -17,7 +17,7 @@ compatibility: 依赖 T3 Code 中子代理会话的编排环境。
 
 ## 会话连续性与轮次控制
 
-- 首次委派后记录子代理会话标识及模型设置。
+- 首次委派后记录子代理会话标识（如 `childThreadId`）及模型设置。
 - 后续轮次复用原会话；把主代理的回应、说服论据和未决问题交给子代理，要求其逐点复核上一轮质疑，并明确说明哪些观点已回应、哪些仍有分歧、立场是否改变及理由。
 - 默认最多讨论 **3 轮**（若用户另行设定上限，以用户要求为准）；若提前收敛可提前结束。
 
